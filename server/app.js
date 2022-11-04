@@ -109,14 +109,22 @@ app.get("/getuser",(req,res)=>{
 })
 app.get("/logout",(req,res)=>{
   req.logout((err)=>{
-    console.log("sxsx");
+    // console.log("sxsx");
   });
   res.redirect("http://localhost:3000");
 })
 
+app.post("/getdatabase",(req,res)=>{
+  User.findOne({googleId:req.body.id},(err,userr)=>{
+    // console.log(userr);
+    res.json(userr);
+
+  })
+})
+
 app.post("/setquote",(req,res)=>{
   const {quote,user} = req.body;
-console.log(quote,user);
+// console.log(quote,user);
   User.findOne({googleId:user},(err,user)=>{
     // console.log(user);
     user.quotes.push(quote);

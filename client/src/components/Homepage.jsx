@@ -11,11 +11,19 @@ function Homepage() {
 
         axios.get("http://localhost:4000/getuser")
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 setUser(res.data.googleId);
                 setUserQuotes(res.data.quotes);
+                var id = res.data.googleId;
+                axios.post("http://localhost:4000/getdatabase", { id })
+                    .then((res) => {
+                        // console.log(res.data.quotes);
+
+                        setUserQuotes(res.data.quotes);
+                    })
             })
-    }, [])
+
+    }, []);
 
     function logout() {
         window.open("http://localhost:4000/logout", "_self");
